@@ -7,7 +7,6 @@ import InterestModal from './InterestModal';
 
 function Register() {
     // State variables to manage form inputs and selected categories
-    const login = 0;
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -84,7 +83,7 @@ function Register() {
                     </div>
                 </form>
             </div>
-            {showInterestModal && <InterestModal onSave={onSave} userData={{ username,password, email, phone, country,jobTitle ,bio,login}} />}
+            {showInterestModal && <InterestModal onSave={onSave} userData={{ username,password, email, phone, country,jobTitle ,bio}} />}
         </div>
     );
 }
