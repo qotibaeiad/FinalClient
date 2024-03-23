@@ -9,7 +9,7 @@ import Profile from './Profile';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
-export const ipAddress = '192.168.0.100'; // Exporting ipAddress
+export const ipAddress = '192.168.14.9'; // Exporting ipAddress
 
 
 const App = () => {
