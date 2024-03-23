@@ -71,7 +71,7 @@ function Profile() {
             <div style={{ backgroundColor: darkSide ? '#374151' : '#E5E7EB', height: '1px' }}></div>
             <ProfileCard darkSide={darkSide} />
             <div className="px-4 flex flex-col md:flex-row-reverse md:items-start mt-0">
-                <div className="w-full md:w-8/12 mx-0 h-64" style={{ marginTop: '0px' }}>
+            <div className="w-full mx-0 h-64" style={{ marginTop: '0px' }}>
                     {/* About Section */}
                     <div className="bg-white p-3 shadow-sm rounded-sm dark:bg-gray-800 dark:text-white">
                         <div className="flex items-center space-x-2 font-semibold text-gray-900 leading-8 dark:bg-slate-600 dark:text-white">
@@ -82,8 +82,8 @@ function Profile() {
                                     <div className="container my-12 mx-auto px-4 md:px-12">
                                         <div className="flex flex-wrap -mx-1 lg:-mx-4">
                                             {articles.map((article, index) => (
-                                                <div key={article.id} className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
-                                                    <article className="overflow-hidden rounded-lg shadow-lg">
+                                                <div key={article.id} className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/2">
+                                                    <article className="rounded-lg shadow-lg">
                                                         <a href="#">
                                                             <img alt="Placeholder" className="block h-48 w-full object-cover" src={article.urlToImage} />
                                                         </a>
@@ -109,11 +109,12 @@ function Profile() {
                                                                 <i className="fa fa-heart"></i>
                                                             </a>
                                                             <button
-                                                                className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                                                className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
                                                                 onClick={() => RemoveFav(article, index)}
                                                             >
                                                                 Remove
                                                             </button>
+
                                                         </footer>
                                                     </article>
                                                 </div>
