@@ -66,7 +66,7 @@ function ForgotPassword() {
         }
     
         try {
-            const response = await fetch(`http://${ipAddress}:3000/api/updateUserData`, {
+            const response = await fetch(`http://${ipAddress}:3000/api/updateUserPasword`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

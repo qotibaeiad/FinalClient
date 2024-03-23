@@ -110,9 +110,15 @@ const MyComponent = () => {
           throw new Error('Failed to fetch categories');
         }
         const data = await response.json();
-        setCategories(data.categories || []);
-        setSelectedDropdownItem(data.categories[0]); 
-        setCategory(data.categories[0]); 
+
+        const updatedCategories = ['Random', ...data.categories]; // Add "Random" as the first item
+        setCategories(updatedCategories);
+        setSelectedDropdownItem(updatedCategories[0]); // Select "Random" by default
+        setCategory(updatedCategories[0]); // Set the category to "Random" initially
+
+        //setCategories(data.categories || []);
+        //setSelectedDropdownItem(data.categories[0]); 
+        //setCategory(data.categories[0]); 
       } catch (error) {
         console.error('Error fetching categories:', error.message);
       }
