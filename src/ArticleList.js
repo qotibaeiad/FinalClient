@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 const loggedInUser = localStorage.getItem('name');
+
 export let Gimage = null;
 export let Gtitle = null;
 export let Gauthor = null;
@@ -27,7 +28,7 @@ const ArticleList = ({ category }) => {
           response = await axios.get(`http://${ipAddress}:3000/api/random`);
         }
         else{
-          response = await axios.get(`http://${ipAddress}:3000/api/data?category=${defaultCategory}`);
+          response = await axios.get(`http://${ipAddress}:3000/api/search?query=${defaultCategory}`);
         }
         setArticles(response.data.articles);
         setLoading(false);
@@ -104,42 +105,11 @@ const ArticleList = ({ category }) => {
   };
 
   const handleClickarticle = (image, title, author, content, publishtime) => {
-    if(image===null){
-      Gimage='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
-    }
-    else{
-      Gimage=image;
-    }
-
-    if(title===null){
-      Gtitle='No title';
-    }
-    else{
-      Gtitle=title;
-    }
-
-    if(author===null){
-      Gauthor='No author';
-    }
-    else{
-      Gauthor=author;
-
-    }
-
-    if(content===null){
-      Gcontent='No content';
-    }
-    else{
-      Gcontent=content;
-    }
-
-    if(publishtime===null){
-      Gpublishtime='No publishtime';
-
-    }
-    else{
-      Gpublishtime=publishtime;
-    }
+    Gimage = image || 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+    Gtitle = title || 'No title';
+    Gauthor = author || 'No author';
+    Gcontent = content || 'No content';
+    Gpublishtime = publishtime || 'No publishtime';
   };
 
   return (
@@ -148,7 +118,13 @@ const ArticleList = ({ category }) => {
       {!loading && articles.length === 0 && <p>No articles available</p>}
       {!loading &&
         articles.length > 0 &&
-        articles.map((article, index) => (
+        articles.filter(article => (
+          article.urlToImage !== null &&
+          article.title !== null &&
+          article.author !== null &&
+          article.content !== null &&
+          article.publishedAt !== null
+        )).map((article, index) => (
           <div key={index} className="hover:scale-90  dark:bg-gray-700 flex flex-wrap transform shadow-lg transition-transform duration-300 ease-in-out text-black dark:text-white  mb-16 p-6">
             <div className="mb-6 ml-auto w-full shrink-0 grow-0 basis-auto px-3 md:mb-0 md:w-3/12">
               <div className="relative mb-6 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20" data-te-ripple-init data-te-ripple-color="light">
@@ -185,6 +161,7 @@ const ArticleList = ({ category }) => {
               <p className=" dark:text-white">
                 {article.description}
               </p>
+              {loggedInUser ? (
               <a href="#!" className="star-link" onClick={() => toggleFavorite(index)}>
                 <span style={{ display: 'inline-block' }}>
                   {favorites[index] ? (
@@ -198,7 +175,7 @@ const ArticleList = ({ category }) => {
                   )}
                 </span>
               </a>
-
+              ) : null}
             </div>
           </div>
         ))}

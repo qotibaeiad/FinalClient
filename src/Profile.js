@@ -5,6 +5,9 @@ import ProfileNavbar from './profileNavbar';
 import ProfileCard from './ProfileCard';
 import useDarkSide from './useDarkSide';
 import { ipAddress } from './App';
+import axios from 'axios'; // Import axios
+
+
 
 function Profile() {
     const [colorTheme, setTheme] = useDarkSide();
@@ -42,6 +45,26 @@ function Profile() {
         setDarkSide(checked);
     };
 
+    const RemoveFav = async (article, articleIndex) => { // Pass article and articleIndex as parameters
+        try {
+            const response = await axios.post(`http://${ipAddress}:3000/api/remove-article`, {
+                username: localStorage.getItem('name'), // Use localStorage directly here
+                title: article.title,
+            });
+
+            if (response.status === 200) {
+                const updatedArticles = [...articles];
+                updatedArticles.splice(articleIndex, 1); // Remove the article from the list
+                setArticles(updatedArticles); // Update the state
+            } else {
+                throw new Error('Failed to remove favorite');
+            }
+        } catch (error) {
+            alert('Error removing favorite');
+            console.error('Error removing favorite:', error);
+        }
+    };
+
     return (
         <div style={{ backgroundColor: darkSide ? '#1F2937' : '#F3F4F6', minHeight: '200vh'}}>
             <ProfileNavbar darkSide={darkSide} toggleDarkMode={toggleDarkMode} />
@@ -58,7 +81,7 @@ function Profile() {
                                 <div>
                                     <div className="container my-12 mx-auto px-4 md:px-12">
                                         <div className="flex flex-wrap -mx-1 lg:-mx-4">
-                                            {articles.map(article => (
+                                            {articles.map((article, index) => (
                                                 <div key={article.id} className="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
                                                     <article className="overflow-hidden rounded-lg shadow-lg">
                                                         <a href="#">
@@ -85,6 +108,12 @@ function Profile() {
                                                                 <span className="hidden">Like</span>
                                                                 <i className="fa fa-heart"></i>
                                                             </a>
+                                                            <button
+                                                                className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                                                onClick={() => RemoveFav(article, index)}
+                                                            >
+                                                                Remove
+                                                            </button>
                                                         </footer>
                                                     </article>
                                                 </div>

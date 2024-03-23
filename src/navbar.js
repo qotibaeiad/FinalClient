@@ -238,7 +238,7 @@ const MyComponent = () => {
                       Profile
                     </Link>
                   ) : null}
-             </li>
+                </li>
               <li>
                 {loggedInUser ? (
                   <Link to="/login">
