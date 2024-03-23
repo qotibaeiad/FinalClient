@@ -104,43 +104,13 @@ const ArticleList = ({ category }) => {
   };
 
   const handleClickarticle = (image, title, author, content, publishtime) => {
-    if(image===null){
-      Gimage='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
-    }
-    else{
-      Gimage=image;
-    }
-
-    if(title===null){
-      Gtitle='No title';
-    }
-    else{
-      Gtitle=title;
-    }
-
-    if(author===null){
-      Gauthor='No author';
-    }
-    else{
-      Gauthor=author;
-
-    }
-
-    if(content===null){
-      Gcontent='No content';
-    }
-    else{
-      Gcontent=content;
-    }
-
-    if(publishtime===null){
-      Gpublishtime='No publishtime';
-
-    }
-    else{
-      Gpublishtime=publishtime;
-    }
+    const Gimage = image || 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+    const Gtitle = title || 'No title';
+    const Gauthor = author || 'No author';
+    const Gcontent = content || 'No content';
+    const Gpublishtime = publishtime || 'No publishtime';
   };
+  
 
   return (
     <div className={`dark:bg-gray-700 ${loading ? 'dark:text-white' : 'dark:text-black'}`}>
