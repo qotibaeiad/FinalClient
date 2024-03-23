@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ipAddress } from './App';
 
 function InterestModal({ onClose, onSave, userData }) {
-    const [selectedCategories, setSelectedCategories] = useState(['Default']);
+    const [selectedCategories, setSelectedCategories] = useState(['Random']);
 
   const toggleCategory = (category) => {
     if (selectedCategories.includes(category)) {

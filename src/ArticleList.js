@@ -22,8 +22,13 @@ const ArticleList = ({ category }) => {
         setLoading(true);
         setArticles([]);
         const defaultCategory = category;
-        const response = await axios.get(`http://${ipAddress}:3000/api/data?category=${defaultCategory}`);
-
+        let response;
+        if (defaultCategory ==='Random'){
+          response = await axios.get(`http://${ipAddress}:3000/api/random`);
+        }
+        else{
+          response = await axios.get(`http://${ipAddress}:3000/api/data?category=${defaultCategory}`);
+        }
         setArticles(response.data.articles);
         setLoading(false);
       } catch (error) {
@@ -99,11 +104,42 @@ const ArticleList = ({ category }) => {
   };
 
   const handleClickarticle = (image, title, author, content, publishtime) => {
-    Gimage=image;
-    Gtitle=title;
-    Gauthor=author;
-    Gcontent=content;
-    Gpublishtime=publishtime
+    if(image===null){
+      Gimage='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+    }
+    else{
+      Gimage=image;
+    }
+
+    if(title===null){
+      Gtitle='No title';
+    }
+    else{
+      Gtitle=title;
+    }
+
+    if(author===null){
+      Gauthor='No author';
+    }
+    else{
+      Gauthor=author;
+
+    }
+
+    if(content===null){
+      Gcontent='No content';
+    }
+    else{
+      Gcontent=content;
+    }
+
+    if(publishtime===null){
+      Gpublishtime='No publishtime';
+
+    }
+    else{
+      Gpublishtime=publishtime;
+    }
   };
 
   return (
@@ -118,8 +154,16 @@ const ArticleList = ({ category }) => {
               <div className="relative mb-6 overflow-hidden rounded-lg bg-cover bg-no-repeat shadow-lg dark:shadow-black/20" data-te-ripple-init data-te-ripple-color="light">
               <Link to={`/Article`}>
                 <img
-                  src={article.urlToImage}
-                  onClick={() => handleClickarticle(article.urlToImage, article.title, article.author, article.content, article.publishedAt)}
+                  src={article.urlToImage ? article.urlToImage : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'}
+                  onClick={() =>
+                    handleClickarticle(
+                      article.urlToImage ? article.urlToImage : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
+                      article.title,
+                      article.author,
+                      article.content,
+                      article.publishedAt
+                    )
+                  }
                   className="lg:w-full"
                   alt="Article"
                 />

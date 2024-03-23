@@ -1,6 +1,8 @@
 import React from 'react';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 import { Link } from 'react-router-dom'; 
+import ArticleList from './ArticleList';
+import MyComponent from './navbar';
 
 const loggedInUser = localStorage.getItem('name');
 
@@ -14,7 +16,7 @@ function ProfileNavbar({ darkSide, toggleDarkMode }) {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 bg-gray-900">
                 <ul className="flex items-center justify-center flex-grow">
                     <li className="mr-6">
-                        <Link to="/navbar" className="text-white px-4 py-2 rounded-md hover:bg-gray-800"> Home</Link>
+                        <Link to="/" className="text-white px-4 py-2 rounded-md hover:bg-gray-800">Home</Link>
                     </li>
                     <li>
                     {loggedInUser ? (

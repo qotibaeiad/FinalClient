@@ -11,11 +11,11 @@ const MyComponent = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setOpen] = useState(false);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
-  const [category, setCategory] = useState('Default');
+  const [category, setCategory] = useState('Random');
   const [loading, setLoading] = useState(false);
   const [colorTheme, setTheme] = useDarkSide();
   const [darkSide, setDarkSide] = useState(colorTheme === 'light' ? true : false);
-  const [selectedDropdownItem, setSelectedDropdownItem] = useState('Default');
+  const [selectedDropdownItem, setSelectedDropdownItem] = useState('Random');
   const [categories, setCategories] = useState([]);
   const [username, setUsername] = useState('');
   const [suggestions, setSuggestions] = useState([]);
