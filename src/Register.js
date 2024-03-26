@@ -4,7 +4,7 @@ import InterestModal from './InterestModal';
 
 
 
-
+// Register Component
 function Register() {
     // State variables to manage form inputs and selected categories
     const [username, setUsername] = useState('');
@@ -16,6 +16,8 @@ function Register() {
     const [showInterestModal, setShowInterestModal] = useState(false); 
     const jobTitle='empthy';
     const bio='empthy';
+
+    // Function to save user data
     const onSave = (userData) => {
         console.log('User data:', userData);
       };
@@ -46,9 +48,12 @@ function Register() {
         <div className="flex justify-center items-center h-screen bg-gray-900">
             <div className="w-96 p-6 shadow-lg bg-white rounded-md">
                 <h1 className="text-3xl block text-center font-semibold"><i className="fa-solid fa-user"></i> Register</h1>
-                <hr className="mt-3" />
-                <form onSubmit={handleSubmit}>
-                    <div className="mt-3">
+                <hr className="mt-3" /> {/* Horizontal line */}
+                <form onSubmit={handleSubmit}> {/* Form with submit handler */}
+                    {/* Input fields for username, email, phone, password, confirm password, and country */}
+                    {/* Each input field has a label, value, onChange event, and placeholder */}
+                    {/* The value of each input is controlled by state */}
+                    {/* The onChange event updates the respective state */}                    <div className="mt-3">
                         <label htmlFor="username" className="block text-base mb-2">Username</label>
                         <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600" placeholder="Enter Username..." />
                     </div>
@@ -83,6 +88,7 @@ function Register() {
                     </div>
                 </form>
             </div>
+            {/* Render InterestModal component when showInterestModal is true */}
             {showInterestModal && <InterestModal onSave={onSave} userData={{ username,password, email, phone, country,jobTitle ,bio}} />}
         </div>
     );

@@ -1,6 +1,6 @@
-// App.js
+import React from 'react'; // Import React library for creating React components
 
-import React from 'react';
+// Import components from other files
 import Login from './Login'; 
 import MyComponent from './navbar';
 import Register from './Register';
@@ -9,19 +9,21 @@ import Profile from './Profile';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
-export const ipAddress = '192.168.0.100'; // Exporting ipAddress
+export const ipAddress = '192.168.203.148'; // Define a constant for the IP address or server endpoint
 
 
+// Define the main App component
 const App = () => {
   return (
     <Router>
       <Routes>
-      <Route exact path="/" element={<MyComponent />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/Profile" element={<Profile />} />
-      <Route path="/ForgotPassword" element={<ForgotPassword />} />
-      <Route path='/Article' element={<Article/>}/>
+        {/* Define routes for different paths */}
+        <Route exact path="/" element={<MyComponent />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route path='/Article' element={<Article/>}/>
       </Routes>
     </Router>
   );

@@ -3,18 +3,22 @@ import { Link } from 'react-router-dom';
 import { ipAddress } from './App';
 
 function Login() {
+    // State variables for username and password
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (event) => {
+    // Function to handle username input change
+    const handleUsernameChange = (event) => {
       setUsername(event.target.value);
   };
 
-  const handlePasswordChange = (event) => {
+    // Function to handle password input change
+    const handlePasswordChange = (event) => {
       setPassword(event.target.value);
   };
 
-  const checkLogin = async () => {
+    // Function to check login credentials
+    const checkLogin = async () => {
       if (username === '' || password === '') {
           alert('Enter username and password');
           return;
@@ -34,7 +38,8 @@ function Login() {
       }
   };
 
-  const checkUser = async (username, password) => {
+     // Function to send login request to the server
+     const checkUser = async (username, password) => {
       const apiUrl = `http://${ipAddress}:3000/api/login?username=${username}&password=${password}`;
 
       try {
@@ -64,26 +69,32 @@ function Login() {
                 <div className="w-96 p-6 shadow-lg bg-white rounded-md dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <h1 className="text-3xl block text-center font-semibold text-black dark:text-white"><i className="fa-solid fa-user text-black dark:text-white"></i> Login</h1>
                     <hr className="mt-3" />
+                    {/* Username input */}
                     <div className="mt-3">
                         <label htmlFor="username" className="block text-base mb-2 text-black dark:text-white">Username</label>
                         <input type="text" id="username" className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600 dark:text-gray-400" placeholder="Enter Username..." value={username} onChange={handleUsernameChange} />
                     </div>
+                    {/* Password input */}
                     <div className="mt-3">
                         <label htmlFor="password" className="block text-base mb-2 text-black dark:text-white">Password</label>
                         <input type="password" id="password" className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600 dark:text-gray-400" placeholder="Enter Password..." value={password} onChange={handlePasswordChange} />
                     </div>
+                    {/* Remember Me checkbox and Forgot Password link */}
                     <div className="mt-3 font-semibold flex justify-between items-center text-black dark:text-white">
                         <div>
                             <input type="checkbox"   />
                             <label>Remember Me</label>
                         </div>
+                        {/* ForgotPassword */}
                         <div>
                             <Link to="/ForgotPassword" className="text-bg-gray-800 font-semibold hover:text-custom-hover text-black dark:text-white">Forgot Password? </Link>
                         </div>
                     </div>
+                    {/* Create new account link */}
                     <div className="mt-2">
                         <Link to="/register" className="text-bg-gray-800 font-semibold hover:text-custom-hover text-black dark:text-white">Create new account</Link>
                     </div>
+                    {/* Login button */}
                     <div className="mt-5">
                         <button type="button" onClick={checkLogin} className="border-2 border-bg-gray-800 bg-gray-800 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-gray-800 font-semibold dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700"><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Login</button>
                     </div>

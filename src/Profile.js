@@ -10,16 +10,18 @@ import axios from 'axios'; // Import axios
 
 
 function Profile() {
+    // State variables
     const [colorTheme, setTheme] = useDarkSide();
     const [darkSide, setDarkSide] = useState(colorTheme === 'light' ? true : false);
     const [articles, setArticles] = useState([]);
 
+    // Fetch articles on component mount
     useEffect(() => {
         const name=localStorage.getItem('name')
-        console.log(name)
         fetchArticles(name);
     }, []);
 
+    // Function to fetch articles based on username
     const fetchArticles = async (username) => {
         try {
             const response = await fetch(`http://${ipAddress}:3000/api/articles/${username}`);
@@ -40,12 +42,14 @@ function Profile() {
         }
     };
 
+    // Function to toggle dark mode
     const toggleDarkMode = checked => {
         setTheme(colorTheme);
         setDarkSide(checked);
     };
 
-    const RemoveFav = async (article, articleIndex) => { // Pass article and articleIndex as parameters
+     // Function to remove a favorite article
+     const RemoveFav = async (article, articleIndex) => { // Pass article and articleIndex as parameters
         try {
             const response = await axios.post(`http://${ipAddress}:3000/api/remove-article`, {
                 username: localStorage.getItem('name'), // Use localStorage directly here
@@ -67,23 +71,34 @@ function Profile() {
 
     return (
         <div style={{ backgroundColor: darkSide ? '#1F2937' : '#F3F4F6', minHeight: '200vh'}}>
+            
+            {/* Profile Navbar */}
             <ProfileNavbar darkSide={darkSide} toggleDarkMode={toggleDarkMode} />
-            <div style={{ backgroundColor: darkSide ? '#374151' : '#E5E7EB', height: '1px' }}></div>
+
+             {/* Divider */}
+             <div style={{ backgroundColor: darkSide ? '#374151' : '#E5E7EB', height: '1px' }}></div>
+            
+            {/* Profile Card */}
             <ProfileCard darkSide={darkSide} />
+
+            {/* Articles Grid */}
             <div className="px-4 mt-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {articles.map((article, index) => (
                         <div key={article.id}>
                             <article className="rounded-lg shadow-lg">
+                                {/* Article Image */}
                                 <a href="#">
                                     <img alt="Placeholder" className="block h-48 w-full object-cover" src={article.urlToImage} />
                                 </a>
                                 <header className="flex items-center justify-between leading-tight p-2 md:p-4">
+                                    {/* Article Title */}
                                     <h1 className="text-lg">
                                         <a className="no-underline hover:underline text-black dark:text-white" href="#">
                                             {article.title}
                                         </a>
                                     </h1>
+                                    {/* Article Date */}
                                     <p className="text-grey-darker text-sm">
                                         {article.date}
                                     </p>
@@ -99,6 +114,7 @@ function Profile() {
                                         <span className="hidden">Like</span>
                                         <i className="fa fa-heart"></i>
                                     </a>
+                                    {/* Remove Button (remove article from "saved news") */}
                                     <button
                                         className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
                                         onClick={() => RemoveFav(article, index)}

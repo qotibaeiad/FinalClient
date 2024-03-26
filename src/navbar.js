@@ -8,6 +8,7 @@ import { ipAddress } from './App';
 const loggedInUser = localStorage.getItem('name');
 
 const MyComponent = () => {
+  // State variables
   const [searchTerm, setSearchTerm] = useState('');
   const [isOpen, setOpen] = useState(false);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
@@ -24,18 +25,18 @@ const MyComponent = () => {
   const [inputClicked, setInputClicked] = useState(false);
 
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Ref for default search input
   const defaultSearchRef = useRef(null);
 
+  // Effect to calculate and set the width of the default search input
   useEffect(() => {
-    // Calculate and set the width of the default search input
     if (defaultSearchRef.current) {
       setSearchInputWidth(defaultSearchRef.current.offsetWidth);
     }
   }, [defaultSearchRef]);
 
+  // Effect for fetching suggestions based on search term
   useEffect(() => {
-    
     if (searchTerm.trim() !== '' && inputClicked) {
       fetch(`https://api.datamuse.com/sug?s=${searchTerm}`)
         .then(response => {
@@ -56,13 +57,14 @@ const MyComponent = () => {
     }
   }, [searchTerm]);
 
+  // Event handler for input change
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
     setShowSuggestions(false);
 
   };
  
-
+  // Event handler for suggestion click
   const handleSuggestionClick = (word) => {
     setSearchTerm(word);
     setShowSuggestions(false);
@@ -70,9 +72,9 @@ const MyComponent = () => {
     setInputClicked(false);
   };
 
+  // Event handler for logout click
   const handleLogout = () => {
     localStorage.clear(); // Clear all items from local storage
-    // Optionally, you can redirect the user to the login page or perform any other logout-related tasks
   };
 
   const handleClickOutside = event => {
@@ -93,8 +95,8 @@ const MyComponent = () => {
   const handleInputClick = () => {
     setInputClicked(true);
   };
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  
+  // Fetch user data on component mount
   useEffect(() => {
     const usernameFromLocalStorage = localStorage.getItem('name');
     if (usernameFromLocalStorage) {
@@ -102,7 +104,8 @@ const MyComponent = () => {
     }
   }, []);
 
-  useEffect(() => {
+   // Fetch categories on username change
+   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await fetch(`http://${ipAddress}:3000/api/categories?username=${username}`);
@@ -111,14 +114,11 @@ const MyComponent = () => {
         }
         const data = await response.json();
 
-        const updatedCategories = ['Random', ...data.categories]; // Add "Random" as the first item
+        const filteredCategories = data.categories.filter(category => category !== 'Random');
+        const updatedCategories = ['Random', ...filteredCategories]; // Add "Random" as the first item
         setCategories(updatedCategories);
         setSelectedDropdownItem(updatedCategories[0]); // Select "Random" by default
         setCategory(updatedCategories[0]); // Set the category to "Random" initially
-
-        //setCategories(data.categories || []);
-        //setSelectedDropdownItem(data.categories[0]); 
-        //setCategory(data.categories[0]); 
       } catch (error) {
         console.error('Error fetching categories:', error.message);
       }
@@ -127,21 +127,25 @@ const MyComponent = () => {
     fetchCategories();
   }, [username]);
 
+  // Toggle main menu
   const toggleMenu = () => {
     setOpen(!isOpen);
     setCategoryDropdownOpen(false);
   };
 
+  // Toggle category dropdown
   const toggleCategoryDropdown = () => {
     setCategoryDropdownOpen(!categoryDropdownOpen);
   };
 
+  // Handle category selection
   const handleCategorySelect = (selectedCategory) => {
     setCategory(selectedCategory);
     setSelectedDropdownItem(selectedCategory);
     setCategoryDropdownOpen(false);
   };
 
+  // Handle search
   const handleSearch = async () => {
     try {
       setLoading(true);
@@ -154,14 +158,7 @@ const MyComponent = () => {
     }
   };
 
-  const handleProfileClick = () => {
-    if (!loggedInUser) {
-      alert('Please log in to access your profile.');
-    } else {
-      // Redirect the user to the profile page or perform any other action for logged-in users
-    }
-  };
-
+  // Toggle dark mode
   const toggleDarkMode = checked => {
     setTheme(colorTheme);
     setDarkSide(checked);
@@ -240,7 +237,7 @@ const MyComponent = () => {
                 </li>
                 <li>
                 {loggedInUser ? (
-                    <Link to="/Profile" className="text-white" onClick={handleProfileClick}>
+                    <Link to="/Profile" className="text-white">
                       Profile
                     </Link>
                   ) : null}

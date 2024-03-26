@@ -3,13 +3,15 @@ import { ipAddress } from './App';
 
 
 function ForgotPassword() {
+    // State variables to manage form inputs and email existence    
     const [email, setEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [emailExists, setEmailExists] = useState(false); // State to track if email exists
 
+    // Function to handle changes in the email input field
     const handleEmailChange = async (event) => {
-        console.log(email)
+        // Get the current value of the email input
         const emailValue = email;
         if (emailValue === '') {
             alert('Please enter your email');
@@ -30,6 +32,7 @@ function ForgotPassword() {
             }
     
             const data = await response.json();
+            // Update the state based on the response from the server
             if(data){
             setEmailExists(data);}
             else{
@@ -43,18 +46,23 @@ function ForgotPassword() {
     
         setEmail(emailValue);
     };
+    
+    // Function to handle changes in the email input field
     const emailchange= (event) => {
         setEmail(event.target.value);
     }
 
+    // Function to handle changes in the new password input field
     const handleNewPasswordChange = (event) => {
         setNewPassword(event.target.value);
     };
 
+    // Function to handle changes in the confirm password input field
     const handleConfirmPasswordChange = (event) => {
         setConfirmPassword(event.target.value);
     };
 
+    // Function to handle form submission
     const handleSubmit = async () => {
         if (email === '') {
             alert('Please enter your email');
@@ -82,6 +90,7 @@ function ForgotPassword() {
             }
     
             const data = await response.json();
+            // Redirect to the login page if password update is successful
             if(data.success){
                 window.location.href = '/login';
             }
@@ -113,6 +122,7 @@ function ForgotPassword() {
                             <button type="button" onClick={handleEmailChange} className="border-2 border-bg-gray-800 bg-gray-800 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-gray-800 font-semibold dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700">Check</button>
                         </div>
                     </div>
+                    {/* If email exists password fields will open and the user can see them and update their password */}
                     {emailExists && (
                         <div>
                             <div className="mt-3">

@@ -3,15 +3,17 @@ import './App.css';
 import { ipAddress } from './App';
 
 
+// EditableField Component
 function EditableField({ fieldName, value, editing, onChange, onSave }) {
-    const [fieldValue, setFieldValue] = useState(value); // Add state to manage input field value
+    // State to manage input field value
+    const [fieldValue, setFieldValue] = useState(value);
 
     const handleChange = (e) => {
         setFieldValue(e.target.value); // Update the state with the new value
     };
 
     const handleSave = () => {
-        onSave(fieldName, fieldValue); // Pass the field value to onSave function
+        onSave(fieldName, fieldValue); // Call onSave function with field value
     };
 
     return (
@@ -35,6 +37,7 @@ function EditableField({ fieldName, value, editing, onChange, onSave }) {
     );
 }
 
+// ProfileCard Component
 function ProfileCard() {
     const [user, setUser] = useState(null);
     const [editingField, setEditingField] = useState(null);
@@ -52,7 +55,8 @@ function ProfileCard() {
     }, []);
 
      
-    async function fetchUserData(username) {
+     // Function to fetch user data from the server
+     async function fetchUserData(username) {
         try {
             const response = await fetch(`http://${ipAddress}:3000/api/userdata?username=${username}`);
             if (!response.ok) {
@@ -69,7 +73,8 @@ function ProfileCard() {
         }
     }
 
-    async function saveField(fieldName, value) {
+     // Function to save edited field data to the server
+     async function saveField(fieldName, value) {
         try {
             const response = await fetch(`http://${ipAddress}:3000/api/updateUserData`, {
                 method: 'POST',
@@ -104,16 +109,19 @@ function ProfileCard() {
         }
     }
 
+    // Function to open editing for a specific field
     function openEditing(fieldName) {
         setEditingField(fieldName);
         setShowSitingScreen(true); // Show the Siting screen when editing starts
     }
 
+    // Function to close editing mode
     function closeEditing() {
         setEditingField(null);
         setShowSitingScreen(false); // Hide the Siting screen when editing ends
     }
     
+    // Function to render the profile card
     function renderProfileCard(darkSide) {
         if (!user) return null;
 
@@ -183,6 +191,7 @@ function ProfileCard() {
 );
 }
 
+// SitingScreen Component
 function SitingScreen({ username, password, jobTitle, bio, country, phone, email, editingField, openEditing, saveField, setShowSitingScreen,  }) {
     useEffect(() => {
         function handleClickOutside(event) {
@@ -194,8 +203,7 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
             const isInputField = event.target.tagName === 'INPUT';
     
             if (isOutsideEditingArea && !isInputField) {
-                setShowSitingScreen(false); 
-
+                setShowSitingScreen(false); // Close Siting screen when clicking outside
             }
         }
     
@@ -209,9 +217,11 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
             <div className="flex justify-center items-center mt-20">
                 <div id="Siting"className="bg-gray-700 p-6 rounded-md border-2">
                     <h2 className="text-white text-lg font-bold mb-3">Profile Information</h2>
+                    {/* EditableField components for different profile fields */}
                     <p className="text-white mt-2 text-container">
                         <strong>Username:</strong>
-                        <EditableField
+                    {/* Username */}
+                    <EditableField
                             fieldName="username"
                             value={username}
                             editing={editingField === 'username'}
@@ -221,7 +231,8 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
                     </p>
                     <p className="text-white mt-2 text-container">
                         <strong>Password:</strong>
-                        <EditableField
+                    {/* password */}
+                    <EditableField
                             fieldName="password"
                             value={password}
                             editing={editingField === 'password'}
@@ -231,7 +242,8 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
                     </p>
                     <p className="text-white mt-2 text-container">
                         <strong>Job Title:</strong>
-                        <EditableField
+                    {/* jobTitle */}
+                    <EditableField
                             fieldName="jobTitle"
                             value={jobTitle}
                             editing={editingField === 'jobTitle'}
@@ -241,7 +253,8 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
                     </p>
                     <p className="text-white mt-2 text-container">
                         <strong>Bio:</strong>
-                        <EditableField
+                    {/* bio */}
+                    <EditableField
                             fieldName="bio"
                             value={bio}
                             editing={editingField === 'bio'}
@@ -251,7 +264,8 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
                     </p>
                     <p className="text-white mt-2 text-container">
                         <strong>Country:</strong>
-                        <EditableField
+                    {/* country */}
+                    <EditableField
                             fieldName="country"
                             value={country}
                             editing={editingField === 'country'}
@@ -261,7 +275,8 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
                     </p>
                     <p className="text-white mt-2 text-container">
                         <strong>Phone:</strong>
-                        <EditableField
+                    {/* phone */}
+                    <EditableField
                             fieldName="phone"
                             value={phone}
                             editing={editingField === 'phone'}
@@ -271,7 +286,8 @@ function SitingScreen({ username, password, jobTitle, bio, country, phone, email
                     </p>
                     <p className="text-white mt-2 text-container">
                         <strong>Email:</strong>
-                        <EditableField
+                    {/* email */}
+                    <EditableField
                             fieldName="email"
                             value={email}
                             editing={editingField === 'email'}
