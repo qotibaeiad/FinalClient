@@ -10,12 +10,16 @@ function Login() {
     // Function to handle username input change
     const handleUsernameChange = (event) => {
       setUsername(event.target.value);
-  };
+    };
 
     // Function to handle password input change
     const handlePasswordChange = (event) => {
       setPassword(event.target.value);
-  };
+    };
+      // Function to login as Guest
+    const LoginGuest = () =>{
+        window.location.href = '/';
+    };
 
     // Function to check login credentials
     const checkLogin = async () => {
@@ -96,7 +100,10 @@ function Login() {
                     </div>
                     {/* Login button */}
                     <div className="mt-5">
+                        {/* Login with existing user */}
                         <button type="button" onClick={checkLogin} className="border-2 border-bg-gray-800 bg-gray-800 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-gray-800 font-semibold dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700"><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Login</button>
+                        {/* Login as Guest */}
+                        <button type="button" onClick={LoginGuest} className="mt-3 border-2 border-gray-800 bg-white text-gray-800 py-1 w-full rounded-md hover:bg-gray-200 font-semibold dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600"><i className="fa-solid fa-right-to-bracket"></i>&nbsp;&nbsp;Login as Guest</button>
                     </div>
                 </div>
             </div>
