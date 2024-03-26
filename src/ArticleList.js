@@ -116,11 +116,11 @@ const ArticleList = ({ category }) => {
 
     // Set global variables with article details when clicked
   const handleClickarticle = (image, title, author, content, publishtime) => {
-    Gimage = image || 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
-    Gtitle = title || 'No title';
-    Gauthor = author || 'No author';
-    Gcontent = content || 'No content';
-    Gpublishtime = publishtime || 'No publishtime';
+    Gimage = image;
+    Gtitle = title;
+    Gauthor = author;
+    Gcontent = content;
+    Gpublishtime = publishtime;
 
   };
   
@@ -134,15 +134,7 @@ const ArticleList = ({ category }) => {
       {/* Map and render articles */}      
       {!loading &&
         articles.length > 0 &&
-        articles.filter(article => (
-          article.urlToImage !== null &&
-          article.title !== null &&
-          article.author !== null &&
-          article.content !== null &&
-          article.publishedAt !== null &&
-          article.description !== null &&
-          article.url !== null
-        )).map((article, index) => (
+        articles.map((article, index) => (
           <div key={index} className="hover:scale-90  dark:bg-gray-700 flex flex-wrap transform shadow-lg transition-transform duration-300 ease-in-out text-black dark:text-white  mb-16 p-6">
             {/* Article image */}            
             <div className="mb-6 ml-auto w-full shrink-0 grow-0 basis-auto px-3 md:mb-0 md:w-3/12">
@@ -150,10 +142,10 @@ const ArticleList = ({ category }) => {
               {/* Link to Article component with image */}              
               <Link to={`/Article`}>
                 <img
-                  src={article.urlToImage ? article.urlToImage : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'}
+                  src={article.urlToImage}
                   onClick={() =>
                     handleClickarticle(
-                      article.urlToImage ? article.urlToImage : 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
+                      article.urlToImage,
                       article.title,
                       article.author,
                       article.content,

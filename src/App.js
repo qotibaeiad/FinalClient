@@ -9,7 +9,7 @@ import Profile from './Profile';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
-export const ipAddress = '192.168.203.148'; // Define a constant for the IP address or server endpoint
+export const ipAddress = '192.168.0.100'; // Define a constant for the IP address or server endpoint
 
 
 // Define the main App component
